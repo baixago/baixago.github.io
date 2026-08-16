@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BaixaGo - Ferramentas para Criadores</title>
+
+  <meta name="description" content="BaixaGo oferece ferramentas simples para criadores verificarem links de vídeos e conteúdos autorizados.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="BaixaGo">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="BaixaGo - Ferramentas para Criadores">
+  <meta property="og:description" content="Verifique links de vídeos de várias plataformas de forma simples e rápida.">
+  <meta property="og:url" content="https://baixago.github.io/">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0b1120;
+      color: #f8fafc;
+      line-height: 1.6;
+      padding: 20px 12px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      margin: auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 25px 10px 20px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: #172033;
+      border: 1px solid #334155;
+      color: #fbbf24;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+    }
+
+    .logo {
+      font-size: 44px;
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+
+    .logo span {
+      color: #fbbf24;
+    }
+
+    .subtitle {
+      color: #94a3b8;
+      font-size: 15px;
+      margin-top: 8px;
+    }
+
+    .platforms {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .platform {
+      background: #111827;
+      border: 1px solid #334155;
+      color: #cbd5e1;
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .card {
+      background: #151e2e;
+      border: 1px solid #334155;
+      border-radius: 18px;
+      padding: 25px 20px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      color: #94a3b8;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px;
+      border-radius: 10px;
+      border: 1px solid #475569;
+      background: #0b1120;
+      color: white;
+      font-size: 15px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #fbbf24;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 12px;
+      padding: 16px;
+      border: none;
+      border-radius: 10px;
+      background: #fbbf24;
+      color: #111827;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #f59e0b;
+    }
+
+    #result-box {
+      display: none;
+      margin-top: 15px;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .section {
+      background: #151e2e;
+      border: 1px solid #334155;
+      border-radius: 18px;
+      padding: 25px 20px;
+      margin-bottom: 20px;
+    }
+
+    .section h2 {
+      color: #fbbf24;
+      font-size: 21px;
+      margin-bottom: 12px;
+    }
+
+    .section h3 {
+      color: #f8fafc;
+      font-size: 16px;
+      margin: 18px 0 7px;
+    }
+
+    .section p {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .faq {
+      border-top: 1px solid #334155;
+      padding-top: 14px;
+      margin-top: 14px;
+    }
+
+    .faq strong {
+      display: block;
+      color: #f8fafc;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    .faq p {
+      margin-bottom: 0;
+      font-size: 13px;
+    }
+
+    .notice {
+      background: #171b27;
+      border-left: 4px solid #fbbf24;
+      padding: 14px;
+      border-radius: 8px;
+      color: #cbd5e1;
+      font-size: 13px;
+      margin-top: 18px;
+    }
+
+    footer {
+      text-align: center;
+      border-top: 1px solid #334155;
+      padding: 22px 10px;
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    footer a {
+      color: #fbbf24;
+      text-decoration: none;
+      margin: 0 6px;
+    }
+
+    .copyright {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <header>
+      <div class="badge">● FERRAMENTA GRATUITA</div>
+
+      <h1 class="logo">
+        Baixa<span>Go</span>
+      </h1>
+
+      <p class="subtitle">
+        Ferramentas simples para criadores.
+      </p>
+
+      <div class="platforms">
+        <span class="platform">YouTube</span>
+        <span class="platform">TikTok</span>
+        <span class="platform">Instagram</span>
+        <span class="platform">Facebook</span>
+        <span class="platform">Pinterest</span>
+        <span class="platform">X</span>
+      </div>
+    </header>
+
+
+    <main class="card">
+
+      <label for="videoUrl">
+        Link do vídeo
+      </label>
+
+      <input
+        type="url"
+        id="videoUrl"
+        placeholder="Cole o link aqui..."
+        autocomplete="off"
+      >
+
+      <button onclick="verificarLink()">
+        Verificar link
+      </button>
+
+      <div id="result-box"></div>
+
+      <div class="notice">
+        <strong>Aviso:</strong>
+        Use somente vídeos próprios ou conteúdos autorizados pelo criador.
+        O BaixaGo não é afiliado ao YouTube, TikTok, Instagram, Facebook,
+        Pinterest ou X.
+      </div>
+
+    </main>
+
+
+    <section class="section">
+
+      <h2>Como funciona o BaixaGo?</h2>
+
+      <p>
+        O BaixaGo é uma ferramenta online criada para ajudar criadores
+        de conteúdo a verificar links de vídeos de diferentes plataformas.
+      </p>
+
+      <h3>1. Copie o link</h3>
+
+      <p>
+        Copie o endereço do vídeo que você deseja verificar.
+      </p>
+
+      <h3>2. Cole o link</h3>
+
+      <p>
+        Cole o endereço no campo acima.
+      </p>
+
+      <h3>3. Verifique</h3>
+
+      <p>
+        Clique em "Verificar link" para identificar a plataforma.
+      </p>
+
+      <h3>Conteúdo autorizado</h3>
+
+      <p>
+        Utilize somente conteúdos próprios ou conteúdos para os quais
+        você tenha autorização do criador.
+      </p>
+
+    </section>
+
+
+    <section class="section">
+
+      <h2>Perguntas frequentes</h2>
+
+      <div class="faq">
+        <strong>O BaixaGo é gratuito?</strong>
+        <p>
+          Sim. O verificador de links é gratuito e funciona diretamente
+          no navegador.
+        </p>
+      </div>
+
+      <div class="faq">
+        <strong>Quais plataformas são reconhecidas?</strong>
+        <p>
+          YouTube, TikTok, Instagram, Facebook, Pinterest e X.
+        </p>
+      </div>
+
+      <div class="faq">
+        <strong>O BaixaGo armazena meus links?</strong>
+        <p>
+          Esta versão do BaixaGo não possui banco de dados para armazenar
+          os links enviados pelo usuário.
+        </p>
+      </div>
+
+      <div class="faq">
+        <strong>O BaixaGo é afiliado às plataformas?</strong>
+        <p>
+          Não. O BaixaGo é um projeto independente e não representa
+          oficialmente nenhuma das plataformas mencionadas.
+        </p>
+      </div>
+
+    </section>
+
+
+    <footer>
+
+      <div class="copyright">
+        © 2026 BaixaGo. Todos os direitos reservados.
+      </div>
+
+      <div>
+        <a href="privacy.html">Privacidade</a>
+        <a href="terms.html">Termos</a>
+        <a href="mailto:contato@baixago.com">Contato</a>
+      </div>
+
+    </footer>
+
+  </div>
+
+
+  <script>
+
+    function verificarLink() {
+
+      const input = document.getElementById("videoUrl");
+      const result = document.getElementById("result-box");
+
+      const value = input.value.trim();
+
+      if (!value) {
+
+        showResult(
+          "Cole um link antes de continuar.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      let url;
+
+      try {
+
+        url = new URL(value);
+
+      } catch (error) {
+
+        showResult(
+          "Digite uma URL válida começando com https://",
+          "error"
+        );
+
+        return;
+      }
+
+
+      if (url.protocol !== "https:") {
+
+        showResult(
+          "Por segurança, use somente links começando com https://",
+          "error"
+        );
+
+        return;
+      }
+
+
+      const hostname = url.hostname.toLowerCase();
+
+
+      const supportedPlatforms = [
+
+        {
+          name: "YouTube",
+          domains: [
+            "youtube.com",
+            "youtu.be"
+          ]
+        },
+
+        {
+          name: "TikTok",
+          domains: [
+            "tiktok.com"
+          ]
+        },
+
+        {
+          name: "Instagram",
+          domains: [
+            "instagram.com"
+          ]
+        },
+
+        {
+          name: "Facebook",
+          domains: [
+            "facebook.com",
+            "fb.watch"
+          ]
+        },
+
+        {
+          name: "Pinterest",
+          domains: [
+            "pinterest.com",
+            "pin.it"
+          ]
+        },
+
+        {
+          name: "X",
+          domains: [
+            "x.com",
+            "twitter.com"
+          ]
+        }
+
+      ];
+
+
+      let detectedPlatform = null;
+
+
+      for (const platform of supportedPlatforms) {
+
+        for (const domain of platform.domains) {
+
+          if (
+            hostname === domain ||
+            hostname.endsWith("." + domain)
+          ) {
+
+            detectedPlatform = platform.name;
+
+            break;
+          }
+
+        }
+
+        if (detectedPlatform) {
+          break;
+        }
+
+      }
+
+
+      if (!detectedPlatform) {
+
+        showResult(
+          "Plataforma não reconhecida. Verifique o link e tente novamente.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      showResult(
+        "✓ Link reconhecido! Plataforma detectada: " +
+        detectedPlatform +
+        ". Use somente conteúdo próprio ou autorizado.",
+        "success"
+      );
+
+    }
+
+
+    function showResult(message, type) {
+
+      const result =
+        document.getElementById("result-box");
+
+      result.style.display = "block";
+
+      result.textContent = message;
+
+
+      if (type === "success") {
+
+        result.style.background =
+          "rgba(52, 211, 153, 0.12)";
+
+        result.style.color =
+          "#34d399";
+
+        result.style.border =
+          "1px solid rgba(52, 211, 153, 0.25)";
+
+      } else {
+
+        result.style.background =
+          "rgba(251, 113, 133, 0.12)";
+
+        result.style.color =
+          "#fb7185";
+
+        result.style.border =
+          "1px solid rgba(251, 113, 133, 0.25)";
+
+      }
+
+    }
+
+  </script>
+
+</body>
+  </html>
